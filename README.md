@@ -21,6 +21,8 @@ Day 7 | 2.9 | 4.1 | 3.4
 Day 8 | 2.5 | 3.4 | 3.1
 Day 9 | 2.6 | 3.8 | 3.2
 Day 10 | 2.7 | 3.9 | 3.5
+
+
 You are a Digital Marketing Analyst who has been given the task of creating an interactive tool to analyze the
 effectiveness of product placement strategies. For this project, you will use R and the Shiny package to develop an
 application that allows users to input their own data and assess the impact of product ad placements on clickthrough rates (CTR) on a website.
