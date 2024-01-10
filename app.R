@@ -42,6 +42,7 @@ ui <- dashboardPage(
   ),
   dashboardBody(
     fluidRow(
+      column(12,
       box(
         title = "Dataset",
         status = "info",
@@ -61,13 +62,21 @@ ui <- dashboardPage(
       helpText("Diketahui X adalah data CTR dan Y adalah posisi peletakan iklan, berdasarkan output ANOVA didapatkan p-value 2.37e-11 < 0.05
            yang artinya model anova signifikan maka dengan menggunakan tingkat kepercayaan 95% data yang ada menolak H0 sehingga dapat 
            disimpulkan bahwa CTR dipengaruhi oleh posisi penempatan iklan")
-      ),
+      )),
+      fluidRow( 
       box(
         title = "Placement Visualization",
         status = "warning",
         solidHeader = TRUE,
         plotOutput("placement_plot")
+      ),
+      box(
+        title = "Placement Visualization",
+        status = "warning",
+        solidHeader = TRUE,
+        plotOutput("placement_plot2")
       )
+     )
     )
   )
 )
@@ -103,6 +112,17 @@ server <- function(input, output) {
       geom_line(aes(y = Right_Sidebar, color = "Right Sidebar")) +
       labs(title = "Ad Placement over Days", y = "Placement Value") +
       scale_color_manual(values = c("Left Sidebar" = "blue", "Center Page" = "green", "Right Sidebar" = "red"))
+  })
+  
+  # Membuat barplot total CTR
+  output$placement_plot2 <- renderPlot({
+    barplot(c(sum(dataset$Left_Sidebar), sum(dataset$Center_Page), sum(dataset$Right_Sidebar)),
+            names.arg = c('Left Sidebar', 'Center Page', 'Right Sidebar'),
+            col = c('skyblue', 'lightgreen', 'lightcoral'),
+            main = 'Total Click-Through Rate (CTR) by Ad Placement',
+            xlab = 'Ad Placement',
+            ylab = 'Total CTR',
+            ylim = c(0, max(c(sum(dataset$Left_Sidebar), sum(dataset$Center_Page), sum(dataset$Right_Sidebar))) + 0.1))
   })
 }
 
